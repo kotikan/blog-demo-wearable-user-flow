@@ -1,45 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.wearable.view.BoxInsetLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@android:color/white"
-    android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:padding="15dp">
+    android:layout_height="match_parent"
+    android:padding="35dp"
+    android:background="@android:color/white">
 
-    <RelativeLayout
+    <TextView
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="25dp"
-        app:layout_box="all">
+        android:textSize="20sp"
+        android:text="You are late for a meeting, use a taxi?"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/feature_accept"
+        android:textColor="@color/black" />
 
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:textSize="20sp"
-            android:text="You are late for a meeting, use a taxi?"
-            android:layout_alignParentTop="true"
-            android:layout_above="@+id/feature_accept"
-            android:textColor="@color/black" />
+    <ImageButton
+        android:id="@+id/feature_accept"
+        android:background="@null"
+        android:layout_alignParentBottom="true"
+        android:layout_height="50dp"
+        android:layout_width="50dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_action_done" />
 
-        <ImageButton
-            android:id="@+id/feature_accept"
-            android:background="@null"
-            android:layout_alignParentBottom="true"
-            android:layout_height="50dp"
-            android:layout_width="50dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_action_done" />
-
-        <ImageButton
-            android:id="@+id/feature_decline"
-            android:background="@null"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_height="50dp"
-            android:layout_width="50dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_action_close" />
-    </RelativeLayout>
-</android.support.wearable.view.BoxInsetLayout>
+    <ImageButton
+        android:id="@+id/feature_decline"
+        android:background="@null"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_height="50dp"
+        android:layout_width="50dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_action_close" />
+</RelativeLayout>
