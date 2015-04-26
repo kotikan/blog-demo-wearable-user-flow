@@ -1,36 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="35dp"
     android:background="@android:color/white">
 
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:textSize="20sp"
-        android:text="You are late for a meeting, use a taxi?"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/feature_accept"
-        android:textColor="@color/black" />
+    <android.support.wearable.view.DelayedConfirmationView
+        android:id="@+id/book_timer"
+        tools:background="#444"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/ic_action_close"
+        app:circle_border_color="#f00"
+        app:circle_border_width="6dp"
+        app:circle_radius="31dp"
+        app:circle_color="#ffdf746e"
+        app:circle_radius_pressed="4dp"
+        app:circle_padding="4dp"
+        />
 
-    <ImageButton
-        android:id="@+id/feature_accept"
-        android:background="@null"
-        android:layout_alignParentBottom="true"
-        android:layout_height="50dp"
-        android:layout_width="50dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_action_done" />
-
-    <ImageButton
-        android:id="@+id/feature_decline"
-        android:background="@null"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_height="50dp"
-        android:layout_width="50dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_action_close" />
 </RelativeLayout>
