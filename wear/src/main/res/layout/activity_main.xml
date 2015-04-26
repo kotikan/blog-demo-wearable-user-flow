@@ -8,18 +8,54 @@
     android:padding="35dp"
     android:background="@android:color/white">
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:text="Message"
+        android:textColor="#ffb6b6b6"
+        android:fontFamily="sans-serif-condensed-light"
+        />
+
+    <TextView
+        android:layout_marginTop="8dp"
+        android:id="@+id/message"
+        android:layout_below="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        tools:text="Car arriving in 45s"
+        android:textColor="#ff545454"
+        android:fontFamily="sans-serif-condensed-light"
+        />
+
     <android.support.wearable.view.DelayedConfirmationView
+        android:layout_alignParentBottom="true"
         android:id="@+id/book_timer"
-        tools:background="#444"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:src="@drawable/ic_action_close"
         app:circle_border_color="#f00"
         app:circle_border_width="6dp"
-        app:circle_radius="31dp"
+        app:circle_radius="39dp"
         app:circle_color="#ffdf746e"
         app:circle_radius_pressed="4dp"
         app:circle_padding="4dp"
+        />
+
+    <TextView
+        android:layout_alignTop="@+id/book_timer"
+        android:layout_alignBottom="@+id/book_timer"
+        android:layout_toRightOf="@+id/book_timer"
+        android:gravity="center_vertical"
+        android:id="@+id/cancel_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed-light"
+        android:textSize="20dp"
+        android:text="Cancel..."
+        android:textColor="#ffb6b6b6"
         />
 
 </RelativeLayout>

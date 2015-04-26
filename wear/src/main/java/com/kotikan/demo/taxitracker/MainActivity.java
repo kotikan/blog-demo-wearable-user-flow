@@ -3,14 +3,18 @@ package com.kotikan.demo.taxitracker;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.wearable.activity.ConfirmationActivity;
 import android.support.wearable.view.DelayedConfirmationView;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
     private DelayedConfirmationView confirmationView;
+    final private int car_will_arrive_in = 25;
+    final private int car_countdown_in_seconds = 7;
+    final private int car_countdown_in_millis = car_countdown_in_seconds * 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +33,23 @@ public class MainActivity extends Activity {
                 onClickCancel();
             }
         });
-        confirmationView.setTotalTimeMs(8000l);
+        confirmationView.setTotalTimeMs(car_countdown_in_millis);
         confirmationView.start();
+
+        final TextView message = (TextView) findViewById(R.id.message);
+        final Handler handler = new Handler();
+        updateTo(car_will_arrive_in, message, handler);
+    }
+
+    private void updateTo(final int secondsLeft, final TextView message, final Handler handler) {
+        message.setText("Car arriving in " + secondsLeft + "s");
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                updateTo(secondsLeft - 1, message, handler);
+            }
+        }, 1000);
     }
 
     private void onClickCancel() {
