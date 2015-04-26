@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.support.wearable.activity.ConfirmationActivity;
 import android.support.wearable.view.DelayedConfirmationView;
 import android.view.View;
@@ -20,6 +21,9 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final Vibrator systemService = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        systemService.vibrate(75l);
 
         confirmationView = (DelayedConfirmationView) findViewById(R.id.book_timer);
         confirmationView.setListener(new DelayedConfirmationView.DelayedConfirmationListener() {
