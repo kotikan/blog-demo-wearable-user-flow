@@ -5,6 +5,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.os.Vibrator;
 import android.support.wearable.activity.ConfirmationActivity;
 import android.support.wearable.view.DelayedConfirmationView;
@@ -21,6 +22,7 @@ public class CountdownAcceptActivity extends Activity {
 
     private String userMessage = "Car arriving in %ss";
     private int countdownToCarArrive = car_will_arrive_in;
+    private PowerManager.WakeLock mWakeLock;
 
     public static void startWithData(Service service, String message, String arrivingIn) {
         final Intent intent = new Intent(service, CountdownAcceptActivity.class);
@@ -34,9 +36,27 @@ public class CountdownAcceptActivity extends Activity {
     private DelayedConfirmationView confirmationView;
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        if (mWakeLock.isHeld()) mWakeLock.release();
+        System.out.println("CountdownAcceptActivity.onPause");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!mWakeLock.isHeld()) mWakeLock.acquire();
+        System.out.println("CountdownAcceptActivity.onStart");
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("CountdownAcceptActivity.onCreate");
         setContentView(R.layout.activity_main);
+
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        mWakeLock = powerManager.newWakeLock((PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "MyWakelockTag");
 
         final Intent intent = getIntent();
         if (intent != null) {
