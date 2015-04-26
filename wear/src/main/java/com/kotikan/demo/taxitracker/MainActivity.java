@@ -1,6 +1,8 @@
 package com.kotikan.demo.taxitracker;
 
 import android.app.Activity;
+import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,15 +14,47 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
+    private static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
+    private static final String EXTRA_TAXI_ARRIVE_IN = "EXTRA_TAXI_ARRIVE_IN";
+    final static private int car_will_arrive_in = 25;
+    final static private int car_countdown_in_seconds = 7;
+    final static private int car_countdown_in_millis = car_countdown_in_seconds * 1000;
+
+    private String userMessage = "Car arriving in %ss";
+    private int startingTimerForCar = car_will_arrive_in;
+
+    public static void startWithData(Service service, byte[] data) {
+        final Intent intent = new Intent(service, MainActivity.class);
+        final String s = new String(data);
+        System.out.println("value from the dataset: " + s);
+        final String[] split = s.split(";");
+        intent.putExtra(EXTRA_MESSAGE, split[0]);
+        intent.putExtra(EXTRA_TAXI_ARRIVE_IN, split[1]);
+
+        service.startActivity(intent);
+    }
+
     private DelayedConfirmationView confirmationView;
-    final private int car_will_arrive_in = 25;
-    final private int car_countdown_in_seconds = 7;
-    final private int car_countdown_in_millis = car_countdown_in_seconds * 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final Intent intent = getIntent();
+        if (intent != null) {
+            final Bundle extras = intent.getExtras();
+            if (extras != null) {
+                final String extraMessage = extras.getString(EXTRA_MESSAGE);
+                if (extraMessage != null) {
+                    userMessage = extraMessage;
+                }
+                final String string = extras.getString(EXTRA_TAXI_ARRIVE_IN);
+                if (string != null) {
+                    startingTimerForCar = Integer.valueOf(string);
+                }
+            }
+        }
 
         final Vibrator systemService = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         systemService.vibrate(75l);
@@ -42,11 +76,11 @@ public class MainActivity extends Activity {
 
         final TextView message = (TextView) findViewById(R.id.message);
         final Handler handler = new Handler();
-        updateTo(car_will_arrive_in, message, handler);
+        updateTo(startingTimerForCar, message, handler);
     }
 
     private void updateTo(final int secondsLeft, final TextView message, final Handler handler) {
-        message.setText("Car arriving in " + secondsLeft + "s");
+        message.setText(String.format(userMessage, secondsLeft));
 
         handler.postDelayed(new Runnable() {
             @Override
