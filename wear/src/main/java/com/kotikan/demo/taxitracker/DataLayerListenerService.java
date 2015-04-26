@@ -11,12 +11,18 @@ public class DataLayerListenerService extends WearableListenerService {
     public void onMessageReceived(MessageEvent messageEvent) {
         super.onMessageReceived(messageEvent);
 
-        if (messageEvent != null && "/start/MainActivity".equalsIgnoreCase(messageEvent.getPath())) {
-            long token = Binder.clearCallingIdentity();
-            try {
-                MainActivity.startWithData(this, messageEvent.getData());
-            } finally {
-                Binder.restoreCallingIdentity(token);
+        if (messageEvent != null) {
+            final String path = messageEvent.getPath();
+            final String prefix = "/start/MainActivity/";
+            if (path.startsWith(prefix)) {
+                long token = Binder.clearCallingIdentity();
+                try {
+                    final String replace = path.replace(prefix, "");
+                    final String[] splits = replace.split("/");
+                    MainActivity.startWithData(this, splits[0], splits[1]);
+                } finally {
+                    Binder.restoreCallingIdentity(token);
+                }
             }
         }
     }

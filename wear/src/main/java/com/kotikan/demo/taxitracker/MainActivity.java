@@ -2,7 +2,6 @@ package com.kotikan.demo.taxitracker;
 
 import android.app.Activity;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,13 +22,11 @@ public class MainActivity extends Activity {
     private String userMessage = "Car arriving in %ss";
     private int startingTimerForCar = car_will_arrive_in;
 
-    public static void startWithData(Service service, byte[] data) {
+    public static void startWithData(Service service, String message, String arrivingIn) {
         final Intent intent = new Intent(service, MainActivity.class);
-        final String s = new String(data);
-        System.out.println("value from the dataset: " + s);
-        final String[] split = s.split(";");
-        intent.putExtra(EXTRA_MESSAGE, split[0]);
-        intent.putExtra(EXTRA_TAXI_ARRIVE_IN, split[1]);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(EXTRA_MESSAGE, message);
+        intent.putExtra(EXTRA_TAXI_ARRIVE_IN, arrivingIn);
 
         service.startActivity(intent);
     }

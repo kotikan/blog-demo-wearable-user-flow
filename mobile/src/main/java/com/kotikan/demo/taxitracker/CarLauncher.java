@@ -16,6 +16,7 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -68,9 +69,9 @@ public class CarLauncher extends ActionBarActivity implements GoogleApiClient.Co
                     results.add(nodeId);
                 }
 
-                final String dataBundle = "Car arrival in %ss;30";
+                final String dataBundle = "Car arrival in %ss/30";
                 Wearable.MessageApi.sendMessage(
-                        mGoogleApiClient, nodeId, "/start/MainActivity", dataBundle.getBytes()).setResultCallback(
+                        mGoogleApiClient, nodeId, "/start/MainActivity/" + dataBundle, new byte[0]).setResultCallback(
                         new ResultCallback<MessageApi.SendMessageResult>() {
                             @Override
                             public void onResult(MessageApi.SendMessageResult sendMessageResult) {
