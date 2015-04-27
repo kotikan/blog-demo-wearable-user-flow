@@ -45,6 +45,18 @@ public class YesNoActivity extends Activity {
         systemService.vibrate(75l);
 
         ((TextView) findViewById(R.id.message)).setText(userMessage);
+        findViewById(R.id.feature_accept).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickSuccess();
+            }
+        });
+        findViewById(R.id.feature_decline).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickCancel();
+            }
+        });
     }
 
     private void onClickCancel() {
