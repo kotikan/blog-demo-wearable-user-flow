@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -21,9 +22,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-public class CarLauncher extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks {
+public class WearLauncherActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks {
 
     private GoogleApiClient mGoogleApiClient;
+    private TextView connectedTo;
+    private Node connectedNode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,8 @@ public class CarLauncher extends ActionBarActivity implements GoogleApiClient.Co
                 .addApi(Wearable.API)
                 .addConnectionCallbacks(this)
                 .build();
+
+        connectedTo = (TextView) findViewById(R.id.connected_to);
 
         findViewById(R.id.car_image).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,25 +58,17 @@ public class CarLauncher extends ActionBarActivity implements GoogleApiClient.Co
     protected void onStop() {
         super.onStop();
         mGoogleApiClient.disconnect();
+        connectedTo.setText("Connecting...");
     }
 
     private void startRemoteActivity() {
-        final Set<String> results = new HashSet<String>();
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                NodeApi.GetConnectedNodesResult nodes = Wearable.NodeApi.getConnectedNodes(mGoogleApiClient).await();
-                System.out.println("loading the nodes returned from the google client");
-                String nodeId = null;
-                for (Node node : nodes.getNodes()) {
-                    nodeId = node.getId();
-                    System.out.println(String.format("id: %1$s name: %2$s", nodeId, node.getDisplayName()));
-                    results.add(nodeId);
-                }
 
                 final String dataBundle = "Car arrival in %ss/30";
                 Wearable.MessageApi.sendMessage(
-                        mGoogleApiClient, nodeId, "/start/MainActivity/" + dataBundle, new byte[0]).setResultCallback(
+                        mGoogleApiClient, connectedNode.getId(), "/start/MainActivity/" + dataBundle, new byte[0]).setResultCallback(
                         new ResultCallback<MessageApi.SendMessageResult>() {
                             @Override
                             public void onResult(MessageApi.SendMessageResult sendMessageResult) {
@@ -90,7 +87,26 @@ public class CarLauncher extends ActionBarActivity implements GoogleApiClient.Co
 
     @Override
     public void onConnected(Bundle bundle) {
-        Toast.makeText(this, "google client connected", Toast.LENGTH_SHORT).show();
+
+        new AsyncTask<Void, Void, Node>(){
+
+            @Override
+            protected void onPostExecute(Node node) {
+                connectedTo.setText("Connected to: " + node.getDisplayName());
+            }
+
+            @Override
+            protected Node doInBackground(Void... voids) {
+                NodeApi.GetConnectedNodesResult nodes = Wearable.NodeApi.getConnectedNodes(mGoogleApiClient).await();
+                System.out.println("loading the nodes returned from the google client");
+                for (Node node : nodes.getNodes()) {
+                    connectedNode = node;
+                    System.out.println(String.format("id: %1$s name: %2$s", node.getId(), node.getDisplayName()));
+                }
+
+                return connectedNode;
+            }
+        }.execute();
     }
 
     @Override

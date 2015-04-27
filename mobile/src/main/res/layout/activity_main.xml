@@ -5,7 +5,20 @@
     android:background="@android:color/white"
     >
 
+    <TextView
+        android:id="@+id/connected_to"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="... connecting"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:textColor="@android:color/black"
+        />
+
     <ImageView
+        android:layout_below="@+id/connected_to"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/default_touch"
