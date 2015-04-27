@@ -18,10 +18,17 @@ public class WearLauncherActivity extends ActionBarActivity implements GoogleApi
     private TextView connectedTo;
     private Node connectedNode;
     private CarActivityLauncher carActivityLauncher = new CarActivityLauncher(new AndroidCarView());
+    private SaxActivityLauncher saxActivityLauncher = new SaxActivityLauncher(new AndroidSaxView());
     private View.OnClickListener carClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             carActivityLauncher.launch(mGoogleApiClient, connectedNode, view.getId());
+        }
+    };
+    private View.OnClickListener saxophonistLauncher = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            saxActivityLauncher.launch(mGoogleApiClient, connectedNode, view.getId());
         }
     };
 
@@ -41,6 +48,9 @@ public class WearLauncherActivity extends ActionBarActivity implements GoogleApi
         findViewById(R.id.radio_meeting).setOnClickListener(carClickListener);
         findViewById(R.id.radio_haircut).setOnClickListener(carClickListener);
 
+        findViewById(R.id.sax_6pm).setOnClickListener(saxophonistLauncher);
+        findViewById(R.id.sax_7pm).setOnClickListener(saxophonistLauncher);
+        findViewById(R.id.sax_8pm).setOnClickListener(saxophonistLauncher);
     }
 
     @Override

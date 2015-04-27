@@ -70,21 +70,58 @@
         <RelativeLayout
             android:layout_width="0px"
             android:layout_height="match_parent"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
             android:layout_weight="1"
             >
 
-           <TextView
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:gravity="center"
-               android:text="content coming"
-               />
+            <ImageView
+                android:id="@+id/sax_image"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/default_touch"
+                android:src="@drawable/saxophonist"
+                android:scaleType="centerInside"
+                android:layout_alignParentTop="true"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_alignParentBottom="true"
+                >
+                <Button
+                    android:id="@+id/sax_6pm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="play at 6pm"
+                    />
+                <Button
+                    android:id="@+id/sax_7pm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="play at 7pm"
+                    />
+                <Button
+                    android:id="@+id/sax_8pm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="play at 8pm"
+                    />
+            </LinearLayout>
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="0px"
             android:layout_height="match_parent"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
             android:layout_weight="1"
             >
 
