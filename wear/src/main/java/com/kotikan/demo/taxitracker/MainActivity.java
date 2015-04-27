@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
     final static private int car_countdown_in_millis = car_countdown_in_seconds * 1000;
 
     private String userMessage = "Car arriving in %ss";
-    private int startingTimerForCar = car_will_arrive_in;
+    private int countdownToCarArrive = car_will_arrive_in;
 
     public static void startWithData(Service service, String message, String arrivingIn) {
         final Intent intent = new Intent(service, MainActivity.class);
@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
                 }
                 final String string = extras.getString(EXTRA_TAXI_ARRIVE_IN);
                 if (string != null) {
-                    startingTimerForCar = Integer.valueOf(string);
+                    countdownToCarArrive = Integer.valueOf(string);
                 }
             }
         }
@@ -73,7 +73,7 @@ public class MainActivity extends Activity {
 
         final TextView message = (TextView) findViewById(R.id.message);
         final Handler handler = new Handler();
-        updateTo(startingTimerForCar, message, handler);
+        updateTo(countdownToCarArrive, message, handler);
     }
 
     private void updateTo(final int secondsLeft, final TextView message, final Handler handler) {
@@ -93,7 +93,7 @@ public class MainActivity extends Activity {
     }
 
     private void onClickSuccess() {
-        launchNotifier("Car en route", ConfirmationActivity.SUCCESS_ANIMATION);
+        launchNotifier("Car booked", ConfirmationActivity.SUCCESS_ANIMATION);
         exit();
     }
 
