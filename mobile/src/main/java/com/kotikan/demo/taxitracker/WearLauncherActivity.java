@@ -3,30 +3,27 @@ package com.kotikan.demo.taxitracker;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.wearable.DataApi;
-import com.google.android.gms.wearable.DataEventBuffer;
-import com.google.android.gms.wearable.MessageApi;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
-
-import java.io.UnsupportedEncodingException;
-import java.util.HashSet;
-import java.util.Set;
-
+import com.kotikan.demo.taxitracker.view.AndroidCarView;
 
 public class WearLauncherActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks {
 
     private GoogleApiClient mGoogleApiClient;
     private TextView connectedTo;
     private Node connectedNode;
+    private CarActivityLauncher carActivityLauncher = new CarActivityLauncher(new AndroidCarView());
+    private View.OnClickListener carClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            carActivityLauncher.launch(mGoogleApiClient, connectedNode, view.getId());
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +37,10 @@ public class WearLauncherActivity extends ActionBarActivity implements GoogleApi
 
         connectedTo = (TextView) findViewById(R.id.connected_to);
 
-        findViewById(R.id.car_image).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startRemoteActivity();
-            }
-        });
+        findViewById(R.id.radio_airport).setOnClickListener(carClickListener);
+        findViewById(R.id.radio_meeting).setOnClickListener(carClickListener);
+        findViewById(R.id.radio_haircut).setOnClickListener(carClickListener);
+
     }
 
     @Override
@@ -59,30 +54,6 @@ public class WearLauncherActivity extends ActionBarActivity implements GoogleApi
         super.onStop();
         mGoogleApiClient.disconnect();
         connectedTo.setText("Connecting...");
-    }
-
-    private void startRemoteActivity() {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-
-                final String dataBundle = "Car arrival in %ss/30";
-                Wearable.MessageApi.sendMessage(
-                        mGoogleApiClient, connectedNode.getId(), "/start/MainActivity/" + dataBundle, new byte[0]).setResultCallback(
-                        new ResultCallback<MessageApi.SendMessageResult>() {
-                            @Override
-                            public void onResult(MessageApi.SendMessageResult sendMessageResult) {
-                                if (!sendMessageResult.getStatus().isSuccess()) {
-                                    Log.e("error", "Failed to send message with status code: "
-                                            + sendMessageResult.getStatus().getStatusCode());
-                                }
-                            }
-                        }
-                );
-
-                return null;
-            }
-        }.execute();
     }
 
     @Override

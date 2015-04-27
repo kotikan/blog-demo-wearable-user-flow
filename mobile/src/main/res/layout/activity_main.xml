@@ -11,20 +11,94 @@
         android:layout_height="wrap_content"
         android:text="... connecting"
         android:gravity="center"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
-        android:textColor="@android:color/black"
         />
 
-    <ImageView
+    <LinearLayout
         android:layout_below="@+id/connected_to"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/default_touch"
-        android:id="@+id/car_image"
-        android:src="@drawable/car"
-        android:scaleType="center"
-        />
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:layout_weight="1"
+            >
+            <ImageView
+                android:id="@+id/car_image"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/default_touch"
+                android:src="@drawable/futurecar"
+                android:scaleType="centerInside"
+                android:layout_alignParentTop="true"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_alignParentBottom="true"
+                >
+                <Button
+                    android:id="@+id/radio_meeting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="late for a meeting"
+                    />
+                <Button
+                    android:id="@+id/radio_haircut"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="late for a haircut"
+                    />
+                <Button
+                    android:id="@+id/radio_airport"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="late for a flight"
+                    />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:gravity="center"
+               android:text="content coming"
+               />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:gravity="center"
+               android:text="content coming"
+               />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
 
 </RelativeLayout>
