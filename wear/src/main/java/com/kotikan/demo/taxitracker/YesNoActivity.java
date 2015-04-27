@@ -4,10 +4,8 @@ import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Vibrator;
 import android.support.wearable.activity.ConfirmationActivity;
-import android.support.wearable.view.DelayedConfirmationView;
 import android.view.View;
 import android.widget.TextView;
 

@@ -9,9 +9,9 @@ public class AndroidSaxView implements SaxView {
     public String getMessageText(int viewId) {
         return new SparseArray<String>() {
             {
-                put(R.id.sax_6pm, "Play at 6pm");
-                put(R.id.sax_7pm, "Play at 7pm");
-                put(R.id.sax_8pm, "Play at 8pm");
+                put(R.id.sax_6pm, "Play music at 6pm");
+                put(R.id.sax_7pm, "Play music at 7pm");
+                put(R.id.sax_8pm, "Play music at 8pm");
             }
         }.get(viewId);
     }

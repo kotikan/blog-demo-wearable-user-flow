@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.wearable.view.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@android:color/white"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:padding="15dp">
 
     <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="25dp"
-        app:layout_box="all">
+        android:padding="40dp"
+        >
 
         <TextView
             android:id="@+id/message"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:textSize="20sp"
-            tools:text="fancy playing a gig?"
+            android:textSize="25dp"
+            tools:text="Play music at 6pm"
             android:layout_alignParentTop="true"
             android:textColor="@color/black" />
 
         <android.support.wearable.view.CircledImageView
             android:id="@+id/feature_accept"
             android:layout_alignParentBottom="true"
-            android:layout_height="70dp"
-            android:layout_width="70dp"
-            android:scaleType="fitXY"
+            android:layout_height="65dp"
+            android:layout_width="65dp"
+            android:scaleType="centerInside"
             android:src="@drawable/ic_action_done"
             app:circle_radius="35dp"
             app:circle_color="#ff2f50dd"
@@ -40,9 +37,9 @@
             android:id="@+id/feature_decline"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_height="70dp"
-            android:layout_width="70dp"
-            android:scaleType="fitXY"
+            android:layout_height="65dp"
+            android:layout_width="65dp"
+            android:scaleType="centerInside"
             android:src="@drawable/ic_action_close"
             app:circle_radius="35dp"
             app:circle_color="#ffa4a4a4"
@@ -50,4 +47,4 @@
             app:circle_padding="4dp"
             />
     </RelativeLayout>
-</android.support.wearable.view.BoxInsetLayout>
+
