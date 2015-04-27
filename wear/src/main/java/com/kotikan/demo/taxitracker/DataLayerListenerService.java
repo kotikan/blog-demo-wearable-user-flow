@@ -13,13 +13,14 @@ public class DataLayerListenerService extends WearableListenerService {
 
         if (messageEvent != null) {
             final String path = messageEvent.getPath();
-            final String prefix = "/start/MainActivity/";
+            final String prefix = "/start/carActivity/";
             if (path.startsWith(prefix)) {
+                
                 long token = Binder.clearCallingIdentity();
                 try {
                     final String replace = path.replace(prefix, "");
                     final String[] splits = replace.split("/");
-                    MainActivity.startWithData(this, splits[0], splits[1]);
+                    CountdownAcceptActivity.startWithData(this, splits[0], splits[1]);
                 } finally {
                     Binder.restoreCallingIdentity(token);
                 }

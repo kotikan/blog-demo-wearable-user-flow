@@ -11,7 +11,7 @@ import android.support.wearable.view.DelayedConfirmationView;
 import android.view.View;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class CountdownAcceptActivity extends Activity {
 
     private static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
     private static final String EXTRA_TAXI_ARRIVE_IN = "EXTRA_TAXI_ARRIVE_IN";
@@ -23,7 +23,7 @@ public class MainActivity extends Activity {
     private int countdownToCarArrive = car_will_arrive_in;
 
     public static void startWithData(Service service, String message, String arrivingIn) {
-        final Intent intent = new Intent(service, MainActivity.class);
+        final Intent intent = new Intent(service, CountdownAcceptActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(EXTRA_MESSAGE, message);
         intent.putExtra(EXTRA_TAXI_ARRIVE_IN, arrivingIn);

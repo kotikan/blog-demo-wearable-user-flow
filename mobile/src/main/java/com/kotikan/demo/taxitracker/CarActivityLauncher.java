@@ -29,7 +29,7 @@ public class CarActivityLauncher {
             protected Void doInBackground(Void... voids) {
 
                 Wearable.MessageApi.sendMessage(
-                        googleApiClient, node.getId(), "/start/MainActivity/" + dataBundle, new byte[0]).setResultCallback(
+                        googleApiClient, node.getId(), "/start/carActivity/" + dataBundle, new byte[0]).setResultCallback(
                         new ResultCallback<MessageApi.SendMessageResult>() {
                             @Override
                             public void onResult(MessageApi.SendMessageResult sendMessageResult) {
