@@ -11,14 +11,14 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.DeviceDefault">
-        <activity android:name=".CountdownAcceptActivity" android:label="@string/app_name"/>
-        <activity android:name=".YesNoActivity" android:label="@string/app_name"/>
+        <activity android:name=".activities.CountdownAcceptActivity" android:label="@string/app_name"/>
+        <activity android:name=".activities.YesNoActivity" android:label="@string/app_name"/>
 
-        <activity android:name=".AlwaysExitsConfirmationActivity"
+        <activity android:name=".activities.AlwaysExitsConfirmationActivity"
             android:launchMode="singleTop"
             />
 
-        <service android:name=".DataLayerListenerService">
+        <service android:name=".utils.DataLayerListenerService">
             <intent-filter>
                 <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
             </intent-filter>

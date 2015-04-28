@@ -1,17 +1,19 @@
-package com.kotikan.demo.taxitracker;
+package com.kotikan.demo.taxitracker.activities;
 
 import android.app.Activity;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PowerManager;
 import android.os.Vibrator;
 import android.support.wearable.activity.ConfirmationActivity;
 import android.support.wearable.view.DelayedConfirmationView;
 import android.view.View;
 import android.widget.TextView;
+
+import com.kotikan.demo.taxitracker.R;
+import com.kotikan.demo.taxitracker.utils.WakeLock;
+import com.kotikan.demo.taxitracker.utils.AndroidWakeLock;
 
 public class CountdownAcceptActivity extends Activity {
 

@@ -1,4 +1,4 @@
-package com.kotikan.demo.taxitracker;
+package com.kotikan.demo.taxitracker.activities;
 
 import android.app.Activity;
 import android.app.Service;
@@ -8,6 +8,10 @@ import android.os.Vibrator;
 import android.support.wearable.activity.ConfirmationActivity;
 import android.view.View;
 import android.widget.TextView;
+
+import com.kotikan.demo.taxitracker.R;
+import com.kotikan.demo.taxitracker.utils.WakeLock;
+import com.kotikan.demo.taxitracker.utils.AndroidWakeLock;
 
 public class YesNoActivity extends Activity {
 

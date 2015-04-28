@@ -1,9 +1,11 @@
-package com.kotikan.demo.taxitracker;
+package com.kotikan.demo.taxitracker.utils;
 
 import android.os.Binder;
 
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
+import com.kotikan.demo.taxitracker.activities.CountdownAcceptActivity;
+import com.kotikan.demo.taxitracker.activities.YesNoActivity;
 
 public class DataLayerListenerService extends WearableListenerService {
 

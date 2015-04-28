@@ -1,4 +1,4 @@
-package com.kotikan.demo.taxitracker;
+package com.kotikan.demo.taxitracker.utils;
 
 import android.content.Context;
 

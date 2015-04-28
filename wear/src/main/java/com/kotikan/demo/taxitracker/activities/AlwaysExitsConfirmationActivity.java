@@ -1,8 +1,11 @@
-package com.kotikan.demo.taxitracker;
+package com.kotikan.demo.taxitracker.activities;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.wearable.activity.ConfirmationActivity;
+
+import com.kotikan.demo.taxitracker.utils.WakeLock;
+import com.kotikan.demo.taxitracker.utils.AndroidWakeLock;
 
 public class AlwaysExitsConfirmationActivity extends ConfirmationActivity {
 
