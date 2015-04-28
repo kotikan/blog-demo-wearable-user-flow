@@ -55,6 +55,20 @@ public class CarStep1Activity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_step_1);
         wakeLock.onCreate(this);
+
+        String userMessage = "";
+        final Intent intent = getIntent();
+        if (intent != null) {
+            final Bundle extras = intent.getExtras();
+            if (extras != null) {
+                final String extraMessage = extras.getString(EXTRA_MESSAGE);
+                if (extraMessage != null) {
+                    userMessage = extraMessage;
+                }
+            }
+        }
+        final String userMessagePassedThrough = userMessage;
+
         final Vibrator systemService = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         systemService.vibrate(75l);
 
@@ -78,7 +92,7 @@ public class CarStep1Activity extends Activity {
                 final CarStep1Activity carStep1Activity = CarStep1Activity.this;
                 final CarView castView = (CarView) view;
 
-                final String message = castView.description.getText().toString() + " @" + castView.title.getText().toString();
+                final String message = userMessagePassedThrough + "\n" + castView.description.getText().toString() + " @" + castView.title.getText().toString();
                 CountdownAcceptActivity.startWithData(carStep1Activity, message);
                 finish();
             }
