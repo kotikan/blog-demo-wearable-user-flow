@@ -2,4 +2,6 @@
     <string name="app_name">Taxi Tracker</string>
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
+
+    <dimen name="px_for_50_dp">50dp</dimen>
 </resources>

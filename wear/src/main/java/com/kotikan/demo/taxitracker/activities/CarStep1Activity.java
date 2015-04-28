@@ -62,9 +62,11 @@ public class CarStep1Activity extends Activity {
         final RecyclerView view = (RecyclerView) findViewById(R.id.wearable_list);
         final List<CarData> data = new ArrayList<CarData>() {
             {
+                add(CarData.paddingRow());
                 add(new CarData("£3.00", "5mins away", R.drawable.cars_01));
                 add(new CarData("£3.50", "3mins away", R.drawable.cars_02));
                 add(new CarData("£4.00", "2mins away", R.drawable.cars_03));
+                add(CarData.paddingRow());
             }
         };
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -113,14 +115,24 @@ public class CarStep1Activity extends Activity {
 
     private static class CarData {
 
+        public final boolean isHeader;
         public final String description;
-        private final String title;
-        private final int drawableId;
+        public final String title;
+        public final int drawableId;
+
+        static CarData paddingRow() {
+            return new CarData(null, null, 0, true);
+        }
 
         public CarData(String title, String description, int drawableId) {
+            this(title, description, drawableId, false);
+        }
+
+        private CarData(String title, String description, int drawableId, boolean isHeader) {
             this.description = description;
             this.title = title;
             this.drawableId = drawableId;
+            this.isHeader = isHeader;
         }
 
     }
@@ -140,23 +152,36 @@ public class CarStep1Activity extends Activity {
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new CarViewHolder(new CarView(context), listener);
+            if (viewType == 0) {
+                final FrameLayout viewGroup = new FrameLayout(context);
+                final float pxFor50Dp = context.getResources().getDimension(R.dimen.px_for_50_dp);
+                viewGroup.addView(new View(context), new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) pxFor50Dp));
+                return new RecyclerView.ViewHolder(viewGroup){};
+            } else  {
+                return new CarViewHolder(new CarView(context), listener);
+            }
         }
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             final CarData carData = data.get(position);
-            final CarView carView = ((CarViewHolder) holder).itemView;
+            if (!carData.isHeader){
+                final CarView carView = ((CarViewHolder) holder).itemView;
 
-            carView.title.setText(carData.title);
-            carView.description.setText(carData.description);
-            carView.image.setImageResource(carData.drawableId);
+                carView.title.setText(carData.title);
+                carView.description.setText(carData.description);
+                carView.image.setImageResource(carData.drawableId);
+            }
         }
 
         @Override
         public int getItemCount() {
             return data.size();
         }
-    }
 
+        @Override
+        public int getItemViewType(int position) {
+            return data.get(position).isHeader ? 0 : 1;
+        }
+    }
 }
