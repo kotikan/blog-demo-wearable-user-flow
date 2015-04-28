@@ -11,10 +11,11 @@
         android:layout_width="match_parent"
         app:layout_box="left|bottom|right">
 
-        <android.support.wearable.view.WearableListView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/wearable_list"
             android:layout_height="match_parent"
-            android:layout_width="match_parent">
-        </android.support.wearable.view.WearableListView>
+            android:layout_width="match_parent"/>
+
     </FrameLayout>
+
 </android.support.wearable.view.BoxInsetLayout>

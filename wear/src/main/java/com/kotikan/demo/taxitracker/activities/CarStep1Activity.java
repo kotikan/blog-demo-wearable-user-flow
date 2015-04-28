@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.wearable.view.WearableListView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,14 +60,17 @@ public class CarStep1Activity extends Activity {
         systemService.vibrate(75l);
 
 
-        final WearableListView view = (WearableListView) findViewById(R.id.wearable_list);
+        final RecyclerView view = (RecyclerView) findViewById(R.id.wearable_list);
         final List<CarData> data = new ArrayList<CarData>() {
             {
-                add(new CarData("Ross's car", "£200 pounds per minute", R.drawable.cars_01));
-                add(new CarData("Jonathan's car", "Dangrous to take that chance", R.drawable.cars_02));
-                add(new CarData("Rob's car", "Average", R.drawable.cars_03));
+                add(new CarData("£3.00", "5mins away", R.drawable.cars_01));
+                add(new CarData("£3.50", "3mins away", R.drawable.cars_02));
+                add(new CarData("£4.00", "2mins away", R.drawable.cars_03));
             }
         };
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        view.setLayoutManager(layoutManager);
         view.setAdapter(new CarAdapter(data, this));
     }
 
@@ -97,7 +102,7 @@ public class CarStep1Activity extends Activity {
     }
 
 
-    private static class CarViewHolder extends WearableListView.ViewHolder {
+    private static class CarViewHolder extends RecyclerView.ViewHolder {
 
         private final CarView itemView;
 
@@ -121,7 +126,7 @@ public class CarStep1Activity extends Activity {
 
     }
 
-    private static class CarAdapter extends WearableListView.Adapter {
+    private static class CarAdapter extends RecyclerView.Adapter {
 
         final List<CarData> data;
 
@@ -133,12 +138,12 @@ public class CarStep1Activity extends Activity {
         }
 
         @Override
-        public WearableListView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             return new CarViewHolder(new CarView(context));
         }
 
         @Override
-        public void onBindViewHolder(WearableListView.ViewHolder holder, int position) {
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             final CarData carData = data.get(position);
             final CarView carView = ((CarViewHolder) holder).itemView;
 
