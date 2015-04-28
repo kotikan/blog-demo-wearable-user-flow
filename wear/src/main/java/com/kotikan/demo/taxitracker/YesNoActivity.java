@@ -13,6 +13,7 @@ public class YesNoActivity extends Activity {
 
     private static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
 
+    private final WakeLock wakeLock = new AndroidWakeLock();
     private String userMessage = "Play sax at 6pm";
 
     public static void startWithData(Service service, String message) {
@@ -24,9 +25,23 @@ public class YesNoActivity extends Activity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        wakeLock.onStart();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onStop();
+        wakeLock.onPause();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sax);
+
+        wakeLock.onCreate(this);
 
         final Intent intent = getIntent();
         if (intent != null) {
