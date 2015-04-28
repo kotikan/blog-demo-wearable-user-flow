@@ -16,8 +16,9 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:textSize="25dp"
-            tools:text="Play music at 6pm"
+            tools:text="Play music at 6pm?"
             android:layout_alignParentTop="true"
+            android:fontFamily="sans-serif-condensed-light"
             android:textColor="@color/black" />
 
         <android.support.wearable.view.CircledImageView
