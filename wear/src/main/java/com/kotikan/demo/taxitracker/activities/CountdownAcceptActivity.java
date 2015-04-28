@@ -18,20 +18,16 @@ import com.kotikan.demo.taxitracker.utils.AndroidWakeLock;
 public class CountdownAcceptActivity extends Activity {
 
     private static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
-    private static final String EXTRA_TAXI_ARRIVE_IN = "EXTRA_TAXI_ARRIVE_IN";
-    final static private int car_will_arrive_in = 25;
-    final static private int car_countdown_in_seconds = 7;
+    final static private int car_countdown_in_seconds = 5;
     final static private int car_countdown_in_millis = car_countdown_in_seconds * 1000;
 
     private String userMessage = "Car arriving in %ss";
-    private int countdownToCarArrive = car_will_arrive_in;
     private final WakeLock wakeLock = new AndroidWakeLock();
 
-    public static void startWithData(Service service, String message, String arrivingIn) {
+    public static void startWithData(Activity service, String message) {
         final Intent intent = new Intent(service, CountdownAcceptActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(EXTRA_MESSAGE, message);
-        intent.putExtra(EXTRA_TAXI_ARRIVE_IN, arrivingIn);
 
         service.startActivity(intent);
     }
@@ -65,10 +61,6 @@ public class CountdownAcceptActivity extends Activity {
                 if (extraMessage != null) {
                     userMessage = extraMessage;
                 }
-                final String string = extras.getString(EXTRA_TAXI_ARRIVE_IN);
-                if (string != null) {
-                    countdownToCarArrive = Integer.valueOf(string);
-                }
             }
         }
 
@@ -91,19 +83,7 @@ public class CountdownAcceptActivity extends Activity {
         confirmationView.start();
 
         final TextView message = (TextView) findViewById(R.id.message);
-        final Handler handler = new Handler();
-        updateTo(countdownToCarArrive, message, handler);
-    }
-
-    private void updateTo(final int secondsLeft, final TextView message, final Handler handler) {
-        message.setText(String.format(userMessage, secondsLeft));
-
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                updateTo(secondsLeft - 1, message, handler);
-            }
-        }, 1000);
+        message.setText(userMessage);
     }
 
     private void onClickCancel() {

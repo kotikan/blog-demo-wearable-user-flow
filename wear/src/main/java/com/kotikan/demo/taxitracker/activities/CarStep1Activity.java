@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.wearable.view.WearableListView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,10 +70,20 @@ public class CarStep1Activity extends Activity {
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         view.setLayoutManager(layoutManager);
-        view.setAdapter(new CarAdapter(data, this));
+        view.setAdapter(new CarAdapter(data, this, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final CarStep1Activity carStep1Activity = CarStep1Activity.this;
+                final CarView castView = (CarView) view;
+
+                final String message = castView.description.getText().toString() + " @" + castView.title.getText().toString();
+                CountdownAcceptActivity.startWithData(carStep1Activity, message);
+                finish();
+            }
+        }));
     }
 
-    private static class CarView extends FrameLayout implements WearableListView.OnCenterProximityListener {
+    private static class CarView extends FrameLayout {
 
         private final TextView title;
         private final TextView description;
@@ -89,26 +98,16 @@ public class CarStep1Activity extends Activity {
             image = (ImageView) inflate.findViewById(R.id.card_image);
             addView(inflate);
         }
-
-        @Override
-        public void onCenterPosition(boolean b) {
-            animate().alpha(1f).setDuration(0).start();
-        }
-
-        @Override
-        public void onNonCenterPosition(boolean b) {
-            animate().alpha(0.2f).setDuration(500).start();
-        }
     }
-
 
     private static class CarViewHolder extends RecyclerView.ViewHolder {
 
         private final CarView itemView;
 
-        public CarViewHolder(CarView itemView) {
+        public CarViewHolder(CarView itemView, View.OnClickListener listener) {
             super(itemView);
             this.itemView = itemView;
+            itemView.setOnClickListener(listener);
         }
     }
 
@@ -131,15 +130,17 @@ public class CarStep1Activity extends Activity {
         final List<CarData> data;
 
         private final Context context;
+        private final View.OnClickListener listener;
 
-        private CarAdapter(List<CarData> data, Context context) {
+        private CarAdapter(List<CarData> data, Context context, View.OnClickListener listener) {
             this.data = data;
             this.context = context;
+            this.listener = listener;
         }
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new CarViewHolder(new CarView(context));
+            return new CarViewHolder(new CarView(context), listener);
         }
 
         @Override
@@ -158,15 +159,4 @@ public class CarStep1Activity extends Activity {
         }
     }
 
-    private void onClickCancel() {
-        exit();
-    }
-
-    private void onClickSuccess() {
-        exit();
-    }
-
-    private void exit() {
-        finish();
-    }
 }
