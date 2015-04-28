@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v7.widget.CardView;
+import android.support.wearable.view.CardFrame;
 import android.support.wearable.view.WearableListView;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +22,7 @@ import com.kotikan.demo.taxitracker.utils.WakeLock;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 public class CarStep1Activity extends Activity {
 
@@ -59,35 +64,37 @@ public class CarStep1Activity extends Activity {
         final WearableListView view = (WearableListView) findViewById(R.id.wearable_list);
         final List<CarData> data = new ArrayList<CarData>() {
             {
-                add(new CarData("Ross's car"));
-                add(new CarData("Jonathan's car"));
-                add(new CarData("Rob's car"));
-                add(new CarData("Charlie's car"));
+                add(new CarData("Ross's car", "£200 pounds per minute"));
+                add(new CarData("Jonathan's car", "Dangrous to take that chance"));
+                add(new CarData("Rob's car", "Average"));
+                add(new CarData("Charlie's car", "it's a bike"));
             }
         };
         view.setAdapter(new CarAdapter(data, this));
-
     }
 
-    private static class CarView extends LinearLayout implements WearableListView.OnCenterProximityListener {
+    private static class CarView extends FrameLayout implements WearableListView.OnCenterProximityListener {
 
-        private final TextView textView;
+        private final TextView title;
+        private final TextView description;
 
         public CarView(Context context) {
             super(context);
-            textView = new TextView(context);
-            textView.setTextColor(Color.BLACK);
-            addView(textView);
+
+            final View inflate = LayoutInflater.from(context).inflate(R.layout.car_card_content, null);
+            title = (TextView) inflate.findViewById(R.id.card_title);
+            description = (TextView) inflate.findViewById(R.id.card_description);
+            addView(inflate);
         }
 
         @Override
         public void onCenterPosition(boolean b) {
-            setAlpha(1f);
+            animate().alpha(1f).setDuration(0).start();
         }
 
         @Override
         public void onNonCenterPosition(boolean b) {
-            animate().alpha(0.5f).setDuration(500).start();
+            animate().alpha(0.2f).setDuration(500).start();
         }
     }
 
@@ -104,11 +111,14 @@ public class CarStep1Activity extends Activity {
 
     private static class CarData {
 
-        public CarData(String carTitle) {
-            this.carTitle = carTitle;
+        public final String description;
+        private final String title;
+
+        public CarData(String title, String description) {
+            this.description = description;
+            this.title = title;
         }
 
-        private final String carTitle;
     }
 
     private static class CarAdapter extends WearableListView.Adapter {
@@ -130,7 +140,10 @@ public class CarStep1Activity extends Activity {
         @Override
         public void onBindViewHolder(WearableListView.ViewHolder holder, int position) {
             final CarData carData = data.get(position);
-            ((CarViewHolder) holder).itemView.textView.setText(carData.carTitle);
+            final CarView carView = ((CarViewHolder) holder).itemView;
+
+            carView.title.setText(carData.title);
+            carView.description.setText(carData.description);
         }
 
         @Override
