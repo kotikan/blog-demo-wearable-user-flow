@@ -31,18 +31,18 @@
         />
 
     <android.support.wearable.view.DelayedConfirmationView
-        android:layout_alignParentBottom="true"
         android:id="@+id/book_timer"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_height="65dp"
+        android:layout_width="65dp"
+        android:scaleType="centerInside"
         android:src="@drawable/ic_action_close"
-        app:circle_border_color="#f00"
+        app:circle_border_color="#ffa6a6a6"
         app:circle_border_width="6dp"
-        app:circle_radius="39dp"
-        app:circle_color="#ffdf746e"
+        app:circle_radius="35dp"
+        app:circle_color="#ff2f50dd"
         app:circle_radius_pressed="4dp"
-        app:circle_padding="4dp"
-        />
+        app:circle_padding="4dp"        />
 
     <TextView
         android:layout_alignTop="@+id/book_timer"
