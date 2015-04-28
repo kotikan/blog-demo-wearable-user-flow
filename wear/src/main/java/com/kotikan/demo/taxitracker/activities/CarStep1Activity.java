@@ -6,14 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.support.v7.widget.CardView;
-import android.support.wearable.view.CardFrame;
 import android.support.wearable.view.WearableListView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kotikan.demo.taxitracker.R;
@@ -22,7 +20,6 @@ import com.kotikan.demo.taxitracker.utils.WakeLock;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 public class CarStep1Activity extends Activity {
 
@@ -64,10 +61,9 @@ public class CarStep1Activity extends Activity {
         final WearableListView view = (WearableListView) findViewById(R.id.wearable_list);
         final List<CarData> data = new ArrayList<CarData>() {
             {
-                add(new CarData("Ross's car", "£200 pounds per minute"));
-                add(new CarData("Jonathan's car", "Dangrous to take that chance"));
-                add(new CarData("Rob's car", "Average"));
-                add(new CarData("Charlie's car", "it's a bike"));
+                add(new CarData("Ross's car", "£200 pounds per minute", R.drawable.cars_01));
+                add(new CarData("Jonathan's car", "Dangrous to take that chance", R.drawable.cars_02));
+                add(new CarData("Rob's car", "Average", R.drawable.cars_03));
             }
         };
         view.setAdapter(new CarAdapter(data, this));
@@ -77,6 +73,7 @@ public class CarStep1Activity extends Activity {
 
         private final TextView title;
         private final TextView description;
+        private final ImageView image;
 
         public CarView(Context context) {
             super(context);
@@ -84,6 +81,7 @@ public class CarStep1Activity extends Activity {
             final View inflate = LayoutInflater.from(context).inflate(R.layout.car_card_content, null);
             title = (TextView) inflate.findViewById(R.id.card_title);
             description = (TextView) inflate.findViewById(R.id.card_description);
+            image = (ImageView) inflate.findViewById(R.id.card_image);
             addView(inflate);
         }
 
@@ -113,10 +111,12 @@ public class CarStep1Activity extends Activity {
 
         public final String description;
         private final String title;
+        private final int drawableId;
 
-        public CarData(String title, String description) {
+        public CarData(String title, String description, int drawableId) {
             this.description = description;
             this.title = title;
+            this.drawableId = drawableId;
         }
 
     }
@@ -144,6 +144,7 @@ public class CarStep1Activity extends Activity {
 
             carView.title.setText(carData.title);
             carView.description.setText(carData.description);
+            carView.image.setImageResource(carData.drawableId);
         }
 
         @Override

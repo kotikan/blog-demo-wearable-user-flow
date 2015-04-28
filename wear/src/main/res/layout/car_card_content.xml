@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        app:cardBackgroundColor="#fff"
-        app:cardUseCompatPadding="true"
-        app:cardElevation="4dp"
-        app:cardCornerRadius="3dp"
-        >
-
-        <LinearLayout
+        <RelativeLayout
+            android:background="@drawable/big_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="6dp"
-            android:orientation="vertical">
+            android:padding="10dp"
+            >
 
             <TextView
                 android:id="@+id/card_title"
+                android:layout_alignTop="@+id/card_image"
+                android:layout_toLeftOf="@+id/card_image"
+                android:layout_marginRight="6dp"
                 android:layout_width="match_parent"
-                android:layout_marginBottom="4dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
                 android:textColor="@color/black"
@@ -33,15 +26,26 @@
 
             <TextView
                 android:id="@+id/card_description"
+                android:layout_below="@+id/card_title"
+                android:layout_toLeftOf="@+id/card_image"
+                android:layout_marginRight="6dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 tools:text="card description" />
-        </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+            <ImageView
+                android:id="@+id/card_image"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_alignParentRight="true"
+                tools:src="@drawable/cars_01"
+                android:scaleType="centerInside"
+                />
+        </RelativeLayout>
+
 </FrameLayout>
 
 
