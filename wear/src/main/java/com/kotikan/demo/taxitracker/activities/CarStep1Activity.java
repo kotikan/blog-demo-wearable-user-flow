@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.kotikan.demo.taxitracker.R;
 import com.kotikan.demo.taxitracker.utils.AndroidWakeLock;
+import com.kotikan.demo.taxitracker.utils.RandomGenerator;
 import com.kotikan.demo.taxitracker.utils.WakeLock;
 
 import java.util.ArrayList;
@@ -76,9 +77,11 @@ public class CarStep1Activity extends Activity {
         final List<CarData> data = new ArrayList<CarData>() {
             {
                 add(CarData.paddingRow());
-                add(new CarData("£3.00", "5mins away", R.drawable.cars_01));
-                add(new CarData("£3.50", "3mins away", R.drawable.cars_02));
-                add(new CarData("£4.00", "2mins away", R.drawable.cars_03));
+                final RandomGenerator generator = new RandomGenerator();
+
+                add(new CarData(generator.newPrice(), generator.newTime(), R.drawable.cars_01));
+                add(new CarData(generator.newPrice(), generator.newTime(), R.drawable.cars_02));
+                add(new CarData(generator.newPrice(), generator.newTime(), R.drawable.cars_03));
                 add(CarData.paddingRow());
             }
         };

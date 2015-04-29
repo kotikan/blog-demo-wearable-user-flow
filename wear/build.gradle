@@ -18,9 +18,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        test {
+            java {
+
+            }
+        }
+    }
 }
 
 dependencies {
+    testCompile 'junit:junit:4.11'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.google.android.support:wearable:1.1.0'
     compile 'com.android.support:cardview-v7:21.0.0'
