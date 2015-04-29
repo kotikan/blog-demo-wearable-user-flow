@@ -81,11 +81,11 @@ public class DataLayerListenerService extends WearableListenerService {
         bigTextStyle.setSummaryText(carPrice);
         bigTextStyle.setBigContentTitle(carArriveIn);
         bigTextStyle.bigText(bigMessage);
+        builder.setStyle(bigTextStyle);
 
         final PendingIntent pendingIntent = PendingIntent.getActivity(this, carResId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(pendingIntent);
 
-        builder.setStyle(bigTextStyle);
         builder.setContentTitle(carPrice);
         builder.setSmallIcon(carResId);
 //        builder.setVibrate(new long[]{50, 100, 50});
