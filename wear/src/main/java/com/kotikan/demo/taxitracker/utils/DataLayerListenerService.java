@@ -33,12 +33,13 @@ public class DataLayerListenerService extends WearableListenerService {
 
                     final RandomGenerator generator = new RandomGenerator();
 
-                    final BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.cars_01);
+                    final BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.notification_background);
 
                     NotificationManager manager = (NotificationManager) getSystemService(Service.NOTIFICATION_SERVICE);
                     final Notification.Builder builder = buildCarMainPage(userMessage);
                     builder.extend(new Notification.WearableExtender()
                             .setBackground(drawable.getBitmap())
+                            .setHintHideIcon(true)
                             .addPage(buildCarPage(userMessage, generator, R.drawable.cars_01))
                             .addPage(buildCarPage(userMessage, generator, R.drawable.cars_02))
                             .addPage(buildCarPage(userMessage, generator, R.drawable.cars_03)));
@@ -82,7 +83,9 @@ public class DataLayerListenerService extends WearableListenerService {
         bigTextStyle.bigText(bigMessage);
 
         final PendingIntent pendingIntent = PendingIntent.getActivity(this, carResId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(pendingIntent);
+//        builder.setContentIntent(pendingIntent);
+
+        builder.addAction(carResId, "book car", pendingIntent);
 
         builder.setStyle(bigTextStyle);
         builder.setContentTitle(carPrice);
