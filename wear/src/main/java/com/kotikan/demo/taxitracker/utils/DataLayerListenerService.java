@@ -11,14 +11,12 @@ import android.os.Binder;
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
 import com.kotikan.demo.taxitracker.R;
-import com.kotikan.demo.taxitracker.activities.CarNotificationActivity;
+import com.kotikan.demo.taxitracker.activities.CountdownAcceptActivity;
 import com.kotikan.demo.taxitracker.activities.YesNoActivity;
 
 public class DataLayerListenerService extends WearableListenerService {
 
-    private static final String NOTIFICATION_GROUP_KEY_CAR = "NOTIFICATION_GROUP_KEY_CAR";
     private static final int NOTIFICATION_KEY_ID_CAR = 1;
-
 
     @Override
     public void onMessageReceived(MessageEvent messageEvent) {
@@ -41,9 +39,9 @@ public class DataLayerListenerService extends WearableListenerService {
                     final Notification.Builder builder = buildCarMainPage(userMessage);
                     builder.extend(new Notification.WearableExtender()
                             .setBackground(drawable.getBitmap())
-                            .addPage(buildCarPage(userMessage, generator, R.drawable.cars_01).build())
-                            .addPage(buildCarPage(userMessage, generator, R.drawable.cars_02).build())
-                            .addPage(buildCarPage(userMessage, generator, R.drawable.cars_03).build()));
+                            .addPage(buildCarPage(userMessage, generator, R.drawable.cars_01))
+                            .addPage(buildCarPage(userMessage, generator, R.drawable.cars_02))
+                            .addPage(buildCarPage(userMessage, generator, R.drawable.cars_03)));
 
                     manager.notify(NOTIFICATION_KEY_ID_CAR, builder.build());
 
@@ -66,23 +64,30 @@ public class DataLayerListenerService extends WearableListenerService {
         return builder;
     }
 
-    private Notification.Builder buildCarPage(String userMessage, RandomGenerator generator, int carResId) {
+    private Notification buildCarPage(String userMessage, RandomGenerator generator, int carResId) {
         final Notification.Builder builder = new Notification.Builder(this);
 
-        final Intent intent = new Intent(this, CarNotificationActivity.class);
-        intent.putExtra(Extras.EXTRA_CAR_PRICE, generator.newPrice());
-        intent.putExtra(Extras.EXTRA_CAR_ARRIVES_IN, generator.newTime());
-        intent.putExtra(Extras.EXTRA_CAR_DRAWABLE_ID, carResId);
+        final Intent intent = new Intent(this, CountdownAcceptActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        final String carPrice = generator.newPrice();
+        final String carArriveIn = generator.newTime();
+        final String bigMessage = userMessage + "\n" + carArriveIn + " @" + carPrice;
+        intent.putExtra(Extras.EXTRA_MESSAGE, bigMessage);
 
-        final PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.extend(new Notification.WearableExtender()
-                .setDisplayIntent(pendingIntent)
-                .setCustomSizePreset(Notification.WearableExtender.SIZE_LARGE));
+        final Notification.BigTextStyle bigTextStyle = new Notification.BigTextStyle(builder);
+        bigTextStyle.setSummaryText(carPrice);
+        bigTextStyle.setBigContentTitle(carArriveIn);
+        bigTextStyle.bigText(bigMessage);
 
-        builder.setContentTitle(userMessage);
+        final PendingIntent pendingIntent = PendingIntent.getActivity(this, carResId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
+
+        builder.setStyle(bigTextStyle);
+        builder.setContentTitle(carPrice);
         builder.setSmallIcon(carResId);
 //        builder.setVibrate(new long[]{50, 100, 50});
 
-        return builder;
+        final Notification build = builder.build();
+        return build;
     }
 }
