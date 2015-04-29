@@ -1,10 +1,8 @@
 package com.kotikan.demo.taxitracker.activities;
 
 import android.app.Activity;
-import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Vibrator;
 import android.support.wearable.activity.ConfirmationActivity;
 import android.support.wearable.view.DelayedConfirmationView;
@@ -12,12 +10,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.kotikan.demo.taxitracker.R;
+import com.kotikan.demo.taxitracker.utils.Extras;
 import com.kotikan.demo.taxitracker.utils.WakeLock;
 import com.kotikan.demo.taxitracker.utils.AndroidWakeLock;
 
 public class CountdownAcceptActivity extends Activity {
 
-    private static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
     final static private int car_countdown_in_seconds = 5;
     final static private int car_countdown_in_millis = car_countdown_in_seconds * 1000;
 
@@ -27,7 +25,7 @@ public class CountdownAcceptActivity extends Activity {
     public static void startWithData(Activity service, String message) {
         final Intent intent = new Intent(service, CountdownAcceptActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(EXTRA_MESSAGE, message);
+        intent.putExtra(Extras.EXTRA_MESSAGE, message);
 
         service.startActivity(intent);
     }
@@ -57,7 +55,7 @@ public class CountdownAcceptActivity extends Activity {
         if (intent != null) {
             final Bundle extras = intent.getExtras();
             if (extras != null) {
-                final String extraMessage = extras.getString(EXTRA_MESSAGE);
+                final String extraMessage = extras.getString(Extras.EXTRA_MESSAGE);
                 if (extraMessage != null) {
                     userMessage = extraMessage;
                 }

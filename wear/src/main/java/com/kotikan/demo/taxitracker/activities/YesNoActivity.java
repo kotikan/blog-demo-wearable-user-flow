@@ -10,12 +10,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.kotikan.demo.taxitracker.R;
+import com.kotikan.demo.taxitracker.utils.Extras;
 import com.kotikan.demo.taxitracker.utils.WakeLock;
 import com.kotikan.demo.taxitracker.utils.AndroidWakeLock;
 
 public class YesNoActivity extends Activity {
-
-    private static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
 
     private final WakeLock wakeLock = new AndroidWakeLock();
     private String userMessage = "Play sax at 6pm";
@@ -23,7 +22,7 @@ public class YesNoActivity extends Activity {
     public static void startWithData(Service service, String message) {
         final Intent intent = new Intent(service, YesNoActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(EXTRA_MESSAGE, message);
+        intent.putExtra(Extras.EXTRA_MESSAGE, message);
 
         service.startActivity(intent);
     }
@@ -51,7 +50,7 @@ public class YesNoActivity extends Activity {
         if (intent != null) {
             final Bundle extras = intent.getExtras();
             if (extras != null) {
-                final String extraMessage = extras.getString(EXTRA_MESSAGE);
+                final String extraMessage = extras.getString(Extras.EXTRA_MESSAGE);
                 if (extraMessage != null) {
                     userMessage = extraMessage;
                 }

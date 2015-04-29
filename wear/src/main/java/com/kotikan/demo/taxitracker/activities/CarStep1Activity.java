@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.kotikan.demo.taxitracker.R;
 import com.kotikan.demo.taxitracker.utils.AndroidWakeLock;
+import com.kotikan.demo.taxitracker.utils.Extras;
 import com.kotikan.demo.taxitracker.utils.RandomGenerator;
 import com.kotikan.demo.taxitracker.utils.WakeLock;
 
@@ -25,15 +26,12 @@ import java.util.List;
 
 public class CarStep1Activity extends Activity {
 
-    private static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
-    private static final String EXTRA_TAXI_ARRIVE_IN = "EXTRA_TAXI_ARRIVE_IN";
-
     private final WakeLock wakeLock = new AndroidWakeLock();
 
     public static void startWithData(Service service, String message) {
         final Intent intent = new Intent(service, CarStep1Activity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(EXTRA_MESSAGE, message);
+        intent.putExtra(Extras.EXTRA_MESSAGE, message);
 
         service.startActivity(intent);
     }
@@ -61,7 +59,7 @@ public class CarStep1Activity extends Activity {
         if (intent != null) {
             final Bundle extras = intent.getExtras();
             if (extras != null) {
-                final String extraMessage = extras.getString(EXTRA_MESSAGE);
+                final String extraMessage = extras.getString(Extras.EXTRA_MESSAGE);
                 if (extraMessage != null) {
                     userMessage = extraMessage;
                 }

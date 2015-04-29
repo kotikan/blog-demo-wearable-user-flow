@@ -1,10 +1,15 @@
 package com.kotikan.demo.taxitracker.utils;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.content.Intent;
 import android.os.Binder;
 
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
-import com.kotikan.demo.taxitracker.activities.CarStep1Activity;
+import com.kotikan.demo.taxitracker.activities.CarNotificationActivity;
 import com.kotikan.demo.taxitracker.activities.YesNoActivity;
 
 public class DataLayerListenerService extends WearableListenerService {
@@ -20,8 +25,26 @@ public class DataLayerListenerService extends WearableListenerService {
             long token = Binder.clearCallingIdentity();
             try {
                 if (path.startsWith(carActivity)) {
-                    final String replace = path.replace(carActivity, "");
-                    CarStep1Activity.startWithData(this, replace);
+                    final String userMessage = path.replace(carActivity, "");
+//                    CarStep1Activity.startWithData(this, userMessage);
+
+                    System.out.println("building notification");
+                    NotificationManager manager = (NotificationManager) getSystemService(Service.NOTIFICATION_SERVICE);
+                    final Notification.Builder builder = new Notification.Builder(this);
+
+                    final Intent intent = new Intent(this, CarNotificationActivity.class);
+                    intent.putExtra(Extras.EXTRA_MESSAGE, userMessage);
+                    final PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    builder.extend(new Notification.WearableExtender()
+                            .setDisplayIntent(pendingIntent)
+                            .setCustomSizePreset(Notification.WearableExtender.SIZE_MEDIUM));
+                    System.out.println("set pending intent for wearable");
+
+                    builder.setContentTitle("Need a car?");
+                    System.out.println("set title");
+                    
+                    manager.notify(1, builder.build());
+                    System.out.println("notified manager to build notificaiton");
 
                 } else if (path.startsWith(saxophonistActivity)) {
                     final String replace = path.replace(saxophonistActivity, "");
