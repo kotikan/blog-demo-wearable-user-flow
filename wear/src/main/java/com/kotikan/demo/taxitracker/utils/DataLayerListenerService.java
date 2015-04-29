@@ -71,7 +71,7 @@ public class DataLayerListenerService extends WearableListenerService {
         final Notification.Builder builder = new Notification.Builder(this);
 
         final Intent intent = new Intent(this, CountdownAcceptActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         final String carPrice = generator.newPrice();
         final String carArriveIn = generator.newTime();
         final String bigMessage = userMessage + "\n" + carArriveIn + " @" + carPrice;
@@ -83,16 +83,13 @@ public class DataLayerListenerService extends WearableListenerService {
         bigTextStyle.bigText(bigMessage);
 
         final PendingIntent pendingIntent = PendingIntent.getActivity(this, carResId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        builder.setContentIntent(pendingIntent);
-
-        builder.addAction(carResId, "book car", pendingIntent);
+        builder.setContentIntent(pendingIntent);
 
         builder.setStyle(bigTextStyle);
         builder.setContentTitle(carPrice);
         builder.setSmallIcon(carResId);
 //        builder.setVibrate(new long[]{50, 100, 50});
 
-        final Notification build = builder.build();
-        return build;
+        return builder.build();
     }
 }
