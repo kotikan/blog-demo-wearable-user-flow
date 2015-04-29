@@ -19,6 +19,6 @@ public class RandomGenerator {
         final double dMins = Math.random() * 4;
         int mins = 1 + (int) dMins;
 
-        return String.valueOf(mins) + "mins away";
+        return String.valueOf(mins) + "mins";
     }
 }

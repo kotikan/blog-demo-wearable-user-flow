@@ -18,9 +18,9 @@ public class AndroidCarView implements CarView {
     @Override
     public String passThroughMessageText(int viewId) {
         final HashMap<Integer, String> map = new HashMap<>();
-        map.put(R.id.radio_airport, "Book car to airport");
-        map.put(R.id.radio_meeting, "Book car to meeting");
-        map.put(R.id.radio_haircut, "Book car to hairdressers");
+        map.put(R.id.radio_airport, "Help! I'm late for my flight");
+        map.put(R.id.radio_meeting, "Help! I'm late for my meeting");
+        map.put(R.id.radio_haircut, "Help! I'm late for my haircut");
         return map.get(viewId);    }
 
     @Override
