@@ -77,9 +77,9 @@ public class CarStep1Activity extends Activity {
                 add(CarData.paddingRow());
                 final RandomGenerator generator = new RandomGenerator();
 
-                add(new CarData(generator.newPrice(), generator.newTime(), R.drawable.cars_01));
-                add(new CarData(generator.newPrice(), generator.newTime(), R.drawable.cars_02));
-                add(new CarData(generator.newPrice(), generator.newTime(), R.drawable.cars_03));
+                add(new CarData(generator.newPrice(1, 4), generator.newTime(), R.drawable.cars_01));
+                add(new CarData(generator.newPrice(1, 4), generator.newTime(), R.drawable.cars_02));
+                add(new CarData(generator.newPrice(1, 4), generator.newTime(), R.drawable.cars_03));
                 add(CarData.paddingRow());
             }
         };

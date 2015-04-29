@@ -97,19 +97,19 @@
                     android:id="@+id/sax_6pm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="play at 6pm"
+                    android:text="Jazz Bar"
                     />
                 <Button
                     android:id="@+id/sax_7pm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="play at 7pm"
+                    android:text="Piano Bar"
                     />
                 <Button
                     android:id="@+id/sax_8pm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="play at 8pm"
+                    android:text="The Garage"
                     />
             </LinearLayout>
 

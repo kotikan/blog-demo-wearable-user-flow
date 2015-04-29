@@ -1,9 +1,9 @@
 package com.kotikan.demo.taxitracker.utils;
 
 public class RandomGenerator {
-    public String newPrice() {
-        final double dPounds = Math.random() * 4;
-        int pounds = 1 + (int) dPounds;
+    public String newPrice(int min, int max) {
+        final double dPounds = Math.random() * (max - min);
+        int pounds = min + (int) dPounds;
 
         final double dPennies = Math.random() * 99;
         int pennies = (int) dPennies;
