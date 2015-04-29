@@ -36,17 +36,18 @@ public class DataLayerListenerService extends WearableListenerService {
                     final BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.notification_background);
 
                     NotificationManager manager = (NotificationManager) getSystemService(Service.NOTIFICATION_SERVICE);
-                    final Notification.Builder builder = buildCarMainPage(userMessage);
-                    builder.extend(new Notification.WearableExtender()
+                    final Notification.Builder carMainPage = buildCarMainPage(userMessage);
+                    carMainPage.extend(new Notification.WearableExtender()
                             .setBackground(drawable.getBitmap())
                             .setHintHideIcon(true)
                             .addPage(buildCarPage(userMessage, generator, R.drawable.cars_01))
                             .addPage(buildCarPage(userMessage, generator, R.drawable.cars_02))
                             .addPage(buildCarPage(userMessage, generator, R.drawable.cars_03)));
 
-                    builder.setPriority(Notification.PRIORITY_MAX);
+                    carMainPage.setPriority(Notification.PRIORITY_MAX);
+                    carMainPage.setVibrate(new long[]{50,100,50});
 
-                    manager.notify(NOTIFICATION_KEY_ID_CAR, builder.build());
+                    manager.notify(NOTIFICATION_KEY_ID_CAR, carMainPage.build());
 
                 } else if (path.startsWith(saxophonistActivity)) {
                     final String replace = path.replace(saxophonistActivity, "");
@@ -88,7 +89,6 @@ public class DataLayerListenerService extends WearableListenerService {
 
         builder.setContentTitle(carPrice);
         builder.setSmallIcon(carResId);
-//        builder.setVibrate(new long[]{50, 100, 50});
 
         return builder.build();
     }
