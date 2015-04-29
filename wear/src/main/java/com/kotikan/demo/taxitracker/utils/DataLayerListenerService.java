@@ -56,7 +56,6 @@ public class DataLayerListenerService extends WearableListenerService {
 
                 } else if (path.startsWith(saxophonistActivity)) {
                     final String location = path.replace(saxophonistActivity, "");
-                    YesNoActivity.startWithData(this, location);
 
                     final BitmapDrawable background = (BitmapDrawable) getResources().getDrawable(R.drawable.notification_background_jazz);
 
@@ -91,10 +90,10 @@ public class DataLayerListenerService extends WearableListenerService {
 
     private Notification.Action jazzAction(int icon, String price) {
         final Intent intent = new Intent(this, YesNoActivity.class);
-        intent.putExtra(Extras.EXTRA_MESSAGE, "I dig it!");
+        intent.putExtra(Extras.EXTRA_MESSAGE, "You will earn " + price);
 
         final PendingIntent pendingIntent = PendingIntent.getActivity(this, icon, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        return new Notification.Action(icon, price, pendingIntent);
+        return new Notification.Action(icon, "I dig it!", pendingIntent);
     }
 
     private Notification jazzInfoPage(String price, final String location) {
