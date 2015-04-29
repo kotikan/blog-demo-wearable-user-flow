@@ -29,11 +29,10 @@ public class CarStep1Activity extends Activity {
 
     private final WakeLock wakeLock = new AndroidWakeLock();
 
-    public static void startWithData(Service service, String message, String arrivingIn) {
+    public static void startWithData(Service service, String message) {
         final Intent intent = new Intent(service, CarStep1Activity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(EXTRA_MESSAGE, message);
-        intent.putExtra(EXTRA_TAXI_ARRIVE_IN, arrivingIn);
 
         service.startActivity(intent);
     }

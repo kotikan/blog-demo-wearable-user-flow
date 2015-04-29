@@ -5,7 +5,6 @@ import android.os.Binder;
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
 import com.kotikan.demo.taxitracker.activities.CarStep1Activity;
-import com.kotikan.demo.taxitracker.activities.CountdownAcceptActivity;
 import com.kotikan.demo.taxitracker.activities.YesNoActivity;
 
 public class DataLayerListenerService extends WearableListenerService {
@@ -22,8 +21,7 @@ public class DataLayerListenerService extends WearableListenerService {
             try {
                 if (path.startsWith(carActivity)) {
                     final String replace = path.replace(carActivity, "");
-                    final String[] splits = replace.split("/");
-                    CarStep1Activity.startWithData(this, splits[0], splits[1]);
+                    CarStep1Activity.startWithData(this, replace);
 
                 } else if (path.startsWith(saxophonistActivity)) {
                     final String replace = path.replace(saxophonistActivity, "");

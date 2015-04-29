@@ -19,10 +19,10 @@ public class CarActivityLauncher {
     }
 
     public void launch(final GoogleApiClient googleApiClient, final Node node, int viewId) {
-        String message = carView.getMessageText(viewId);
+        String message = carView.passThroughMessageText(viewId);
         String carArrivesIn = carView.getCarArrivesIn();
 
-        final String dataBundle = message + "/" + carArrivesIn;
+        final String dataBundle = message;
 
         new AsyncTask<Void, Void, Void>() {
             @Override
