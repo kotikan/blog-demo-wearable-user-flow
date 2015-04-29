@@ -9,6 +9,7 @@ import android.os.Binder;
 
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
+import com.kotikan.demo.taxitracker.R;
 import com.kotikan.demo.taxitracker.activities.CarNotificationActivity;
 import com.kotikan.demo.taxitracker.activities.YesNoActivity;
 
@@ -28,7 +29,6 @@ public class DataLayerListenerService extends WearableListenerService {
                     final String userMessage = path.replace(carActivity, "");
 //                    CarStep1Activity.startWithData(this, userMessage);
 
-                    System.out.println("building notification");
                     NotificationManager manager = (NotificationManager) getSystemService(Service.NOTIFICATION_SERVICE);
                     final Notification.Builder builder = new Notification.Builder(this);
 
@@ -38,13 +38,12 @@ public class DataLayerListenerService extends WearableListenerService {
                     builder.extend(new Notification.WearableExtender()
                             .setDisplayIntent(pendingIntent)
                             .setCustomSizePreset(Notification.WearableExtender.SIZE_MEDIUM));
-                    System.out.println("set pending intent for wearable");
 
-                    builder.setContentTitle("Need a car?");
-                    System.out.println("set title");
-                    
+                    builder.setContentTitle(userMessage);
+                    builder.setSmallIcon(R.drawable.cars_01);
+                    builder.setVibrate(new long[]{5, 20, 5});
+
                     manager.notify(1, builder.build());
-                    System.out.println("notified manager to build notificaiton");
 
                 } else if (path.startsWith(saxophonistActivity)) {
                     final String replace = path.replace(saxophonistActivity, "");
