@@ -43,6 +43,8 @@ public class DataLayerListenerService extends WearableListenerService {
                             .addPage(buildCarPage(userMessage, generator, R.drawable.cars_02))
                             .addPage(buildCarPage(userMessage, generator, R.drawable.cars_03)));
 
+                    builder.setPriority(Notification.PRIORITY_MAX);
+
                     manager.notify(NOTIFICATION_KEY_ID_CAR, builder.build());
 
                 } else if (path.startsWith(saxophonistActivity)) {
