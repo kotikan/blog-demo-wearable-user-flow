@@ -11,20 +11,12 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.DeviceDefault">
-        <activity android:name=".activities.CarStep1Activity" android:label="@string/app_name"/>
         <activity android:name=".activities.CountdownAcceptActivity" android:label="@string/app_name"
             android:launchMode="singleTask"
             android:taskAffinity=""
             android:excludeFromRecents="true"
             />
         <activity android:name=".activities.YesNoActivity" android:label="@string/app_name"/>
-
-        <activity android:name=".activities.CarNotificationActivity"
-            android:exported="true"
-            android:allowEmbedded="true"
-            android:taskAffinity=""
-            android:theme="@android:style/Theme.DeviceDefault.Light" />
-
         <activity android:name=".activities.AlwaysExitsConfirmationActivity"
             android:launchMode="singleTop"
             />

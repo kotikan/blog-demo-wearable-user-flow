@@ -22,14 +22,6 @@ public class CountdownAcceptActivity extends Activity {
     private String userMessage = "Car arriving in %ss";
     private final WakeLock wakeLock = new AndroidWakeLock();
 
-    public static void startWithData(Activity service, String message) {
-        final Intent intent = new Intent(service, CountdownAcceptActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(Extras.EXTRA_MESSAGE, message);
-
-        service.startActivity(intent);
-    }
-
     private DelayedConfirmationView confirmationView;
 
     @Override
