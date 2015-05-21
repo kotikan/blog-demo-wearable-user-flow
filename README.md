@@ -15,5 +15,5 @@ This project is split into two modules:
  - wear
  - mobile
  
-The **wear** module contains the watch app code
+The **wear** module contains the watch app code  
 The **mobile** module should be deployed to your phone/tablet device
